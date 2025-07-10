@@ -1,0 +1,175 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  
+  // GitHub specific fields
+  githubId      String?   @unique
+  githubLogin   String?   @unique
+  location      String?
+  company       String?
+  blog          String?
+  bio           String?
+  hireable      Boolean?
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+  githubData    GitHubData?
+  resumes       Resume[]
+
+  @@map("users")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}
+
+model GitHubData {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Basic stats
+  publicRepos       Int      @default(0)
+  publicGists       Int      @default(0)
+  followers         Int      @default(0)
+  following         Int      @default(0)
+  
+  // Repositories data (JSON as String for SQLite compatibility)
+  repositories      String?  // Array of repository objects as JSON string
+  
+  // Language statistics (JSON as String for SQLite compatibility)
+  languages         String?  // Language breakdown with percentages as JSON string
+  
+  // Contribution data (JSON as String for SQLite compatibility)
+  contributions     String?  // Yearly contribution data as JSON string
+  commitStats       String?  // Commit statistics by time/date as JSON string
+  
+  // Activity metrics (JSON as String for SQLite compatibility)
+  starredRepos      String?  // Starred repositories as JSON string
+  totalStars        Int      @default(0)
+  totalForks        Int      @default(0)
+  totalIssues       Int      @default(0)
+  totalPRs          Int      @default(0)
+  
+  // Sync metadata
+  lastSyncAt        DateTime @default(now())
+  syncStatus        String   @default("pending") // pending, syncing, completed, failed
+  syncError         String?  // Error message if sync failed
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("github_data")
+}
+
+model Resume {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Basic info
+  title       String
+  slug        String   @unique
+  template    String   @default("modern") // modern, classic, minimal, etc.
+  
+  // Content sections (JSON as String for SQLite compatibility)
+  personalInfo    String?  // Name, email, phone, address, etc. as JSON string
+  summary         String?
+  experience      String?  // Work experience array as JSON string
+  education       String?  // Education array as JSON string
+  skills          String?  // Skills array with categories as JSON string
+  projects        String?  // Projects array (can sync from GitHub) as JSON string
+  certificates    String?  // Certificates and achievements as JSON string
+  languages       String?  // Spoken languages as JSON string
+  interests       String?  // Hobbies and interests as JSON string
+  
+  // GitHub integration
+  includeGithubData Boolean  @default(true)
+  githubRepos       String?  // Selected GitHub repositories to showcase as JSON string
+  
+  // Settings
+  isPublic        Boolean  @default(false)
+  showContact     Boolean  @default(true)
+  theme           String   @default("blue") // Color theme
+  
+  // Metadata
+  views           Int      @default(0)
+  downloads       Int      @default(0)
+  
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("resumes")
+}
+
+model Analytics {
+  id          String   @id @default(cuid())
+  
+  // Event tracking
+  event       String   // page_view, resume_download, github_sync, etc.
+  userId      String?
+  resumeId    String?
+  
+  // Additional data (JSON as String for SQLite compatibility)
+  metadata    String?  // Additional event data as JSON string
+  userAgent   String?
+  ipAddress   String?
+  country     String?
+  
+  createdAt   DateTime @default(now())
+
+  @@map("analytics")
+} 

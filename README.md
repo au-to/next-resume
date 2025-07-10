@@ -1,84 +1,231 @@
-# 简历生成器 (Resume Builder)
+# Hacknical - 现代化的 GitHub 简历生成器
 
-一款简洁优雅的在线简历生成工具，帮助求职者快速创建专业简历。
+> 基于 Next.js 14 构建的现代化 GitHub 数据分析和简历生成平台
 
-## 技术栈
+## ✨ 主要特性
 
-- **前端框架**: [Next.js](https://nextjs.org/) - React框架，提供服务器端渲染和静态生成
-- **类型系统**: [TypeScript](https://www.typescriptlang.org/) - 提供类型安全和开发体验
-- **样式解决方案**: 
-  - [Tailwind CSS](https://tailwindcss.com/) - 实用工具优先的CSS框架
-  - [DaisyUI](https://daisyui.com/) - 基于Tailwind的组件库
-- **表单处理**: [React Hook Form](https://react-hook-form.com/) - 高效的表单验证和处理
-- **UI组件**:
-  - [React Icons](https://react-icons.github.io/react-icons/) - 图标库
-  - [Framer Motion](https://www.framer.com/motion/) - 动画效果
-- **PDF生成**: [React-to-Print](https://github.com/gregnb/react-to-print) - 简历打印和导出功能
-- **部署平台**: [Vercel](https://vercel.com/) - 推荐的部署平台
+- 🔍 **GitHub 数据分析** - 深度分析您的 GitHub 活动和代码统计
+- 📊 **可视化图表** - 美观的贡献日历、语言分布图等
+- 📝 **智能简历生成** - 基于 GitHub 数据自动生成专业简历
+- 🎨 **现代化 UI** - 使用 Tailwind CSS 和 shadcn/ui 组件
+- 🔐 **安全认证** - GitHub OAuth 2.0 集成
+- ⚡ **高性能** - Next.js 14 App Router + TypeScript
+- 📱 **响应式设计** - 完美适配桌面和移动端
 
-## 主要功能
+## 🚀 快速开始
 
-### 1. 简历数据管理
-- 完整的个人信息编辑
-- 教育经历管理（添加、编辑、删除）
-- 工作经验管理（添加、编辑、删除）
-- 技能管理
-- 项目经验管理
-- 语言能力管理
-- 数据自动保存
+### 环境要求
 
-### 2. 用户界面
-- 响应式设计，适配移动和桌面设备
-- 简洁直观的编辑界面
-- 实时预览功能
-- 深色/浅色模式支持
+- Node.js 18+ 
+- npm 或 yarn
+- GitHub 账户
 
-### 3. 导出功能
-- 导出为PDF文件
-- 打印功能
-- 专业排版
-
-### 4. 页面结构
-- **首页**: 应用介绍和引导
-- **编辑器页面**: 多选项卡式的简历内容编辑
-- **预览页面**: 实时查看简历效果
-- **导出页面**: 打印和导出功能
-
-## 应用特点
-
-- **简单易用**: 直观的界面设计，易于上手
-- **专业排版**: 精心设计的布局，确保简历美观专业
-- **响应式设计**: 在各种设备上提供良好的使用体验
-- **无需注册**: 无需账户即可使用所有功能
-- **隐私保护**: 所有数据存储在本地，保护用户隐私
-
-## 未来计划
-
-- 添加多种简历模板选择
-- 实现简历数据的本地存储
-- 添加云同步功能
-- 支持简历分享
-- 添加AI辅助生成简历内容功能
-- 提供ATS优化建议
-
-## 本地开发
+### 1. 克隆项目
 
 ```bash
-# 克隆仓库
-git clone https://github.com/yourusername/next-resume.git
+git clone https://github.com/your-username/hacknical-next.git
+cd hacknical-next
+```
 
-# 进入项目目录
-cd next-resume
+### 2. 安装依赖
 
-# 安装依赖
+```bash
 npm install
+```
 
-# 启动开发服务器
+### 3. 配置环境变量
+
+创建 `.env.local` 文件：
+
+```env
+# Next.js
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-key-here
+
+# GitHub OAuth (需要在 GitHub 创建 OAuth App)
+GITHUB_CLIENT_ID=your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
+
+# Database (SQLite for development)
+DATABASE_URL="file:./dev.db"
+```
+
+### 4. 配置 GitHub OAuth App
+
+1. 访问 [GitHub Developer Settings](https://github.com/settings/developers)
+2. 点击 "New OAuth App"
+3. 填写应用信息：
+   - **Application name**: `Hacknical`
+   - **Homepage URL**: `http://localhost:3000`
+   - **Authorization callback URL**: `http://localhost:3000/api/auth/callback/github`
+4. 创建应用后，复制 `Client ID` 和 `Client Secret` 到 `.env.local`
+
+### 5. 初始化数据库
+
+```bash
+npx prisma db push
+npx prisma generate
+```
+
+### 6. 启动开发服务器
+
+```bash
 npm run dev
 ```
 
-然后在浏览器中访问 `http://localhost:3000`
+访问 http://localhost:3000 开始使用！
 
-## 许可证
+## 🏗️ 技术栈
 
-MIT License
+### 前端
+- **Next.js 14** - React 框架，App Router
+- **TypeScript** - 类型安全
+- **Tailwind CSS** - 原子化 CSS 框架
+- **shadcn/ui** - 现代化 UI 组件库
+- **Lucide React** - 图标库
+
+### 后端
+- **NextAuth.js v5** - 身份认证
+- **Prisma** - 数据库 ORM
+- **SQLite/PostgreSQL** - 数据库
+- **GitHub API** - 数据获取
+
+### 部署
+- **Vercel** - 前端部署
+- **Supabase/PlanetScale** - 生产数据库
+
+## 📁 项目结构
+
+```
+hacknical-next/
+├── app/                    # Next.js 14 App Router
+│   ├── api/               # API 路由
+│   ├── auth/              # 认证页面
+│   ├── dashboard/         # 仪表板页面
+│   └── globals.css        # 全局样式
+├── components/            # React 组件
+│   ├── ui/               # UI 基础组件
+│   ├── github/           # GitHub 相关组件
+│   └── nav.tsx           # 导航组件
+├── lib/                   # 工具库
+│   ├── auth.ts           # NextAuth 配置
+│   ├── db.ts             # 数据库配置
+│   ├── github.ts         # GitHub API 服务
+│   └── utils.ts          # 工具函数
+├── prisma/               # 数据库 Schema
+└── public/               # 静态文件
+```
+
+## 🌟 核心功能
+
+### GitHub 数据分析
+- 📈 仓库统计和趋势分析
+- 🎯 编程语言使用分布
+- ⭐ 最受欢迎的项目展示
+- 📅 年度贡献日历
+- 👥 关注者和关注统计
+
+### 简历生成器
+- 📝 多种专业模板选择
+- 🔄 GitHub 项目自动同步
+- 📥 PDF 导出功能
+- 🌐 在线分享链接
+- ⚙️ 自定义主题和布局
+
+### 实时同步
+- 🔄 GitHub 数据实时同步
+- 📊 数据可视化更新
+- 🔔 同步状态通知
+
+## 🛠️ 开发指南
+
+### 添加新组件
+
+```bash
+# 创建新的 UI 组件
+npx shadcn-ui@latest add [component-name]
+```
+
+### 数据库操作
+
+```bash
+# 查看数据库
+npx prisma studio
+
+# 重置数据库
+npx prisma db push --force-reset
+
+# 生成迁移
+npx prisma migrate dev
+```
+
+### 代码格式化
+
+```bash
+# 格式化代码
+npm run lint
+npm run lint:fix
+```
+
+## 📊 API 端点
+
+### GitHub 同步
+- `GET /api/github/sync` - 获取同步数据
+- `POST /api/github/sync` - 触发数据同步
+
+### 认证
+- `GET/POST /api/auth/*` - NextAuth.js 认证端点
+
+## 🎨 自定义主题
+
+项目使用 Tailwind CSS 和 CSS 变量支持深色模式：
+
+```css
+:root {
+  --primary: 222.2 84% 4.9%;
+  --secondary: 210 40% 96%;
+  /* 更多主题变量... */
+}
+```
+
+## 🚀 部署
+
+### Vercel 部署
+
+1. 推送代码到 GitHub
+2. 连接 Vercel 到你的 GitHub 仓库
+3. 配置环境变量
+4. 部署！
+
+### 环境变量配置
+
+生产环境需要配置：
+- `NEXTAUTH_URL` - 你的域名
+- `NEXTAUTH_SECRET` - 安全密钥
+- `GITHUB_CLIENT_ID` - GitHub OAuth Client ID
+- `GITHUB_CLIENT_SECRET` - GitHub OAuth Client Secret
+- `DATABASE_URL` - 生产数据库连接字符串
+
+## 🤝 贡献指南
+
+1. Fork 项目
+2. 创建功能分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 开启 Pull Request
+
+## 📄 许可证
+
+本项目基于 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
+
+## 🙏 致谢
+
+- [Next.js](https://nextjs.org/) - React 框架
+- [Tailwind CSS](https://tailwindcss.com/) - CSS 框架
+- [shadcn/ui](https://ui.shadcn.com/) - UI 组件库
+- [Prisma](https://prisma.io/) - 数据库 ORM
+- [NextAuth.js](https://next-auth.js.org/) - 认证库
+
+---
+
+**⭐ 如果这个项目对你有帮助，请给一个 Star！**
