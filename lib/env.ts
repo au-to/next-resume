@@ -11,8 +11,8 @@ const envSchema = z.object({
 
 export const env = envSchema.parse({
   NODE_ENV: process.env.NODE_ENV,
-  NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-  NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+  NEXTAUTH_URL: process.env.AUTH_URL,
+  NEXTAUTH_SECRET: process.env.AUTH_SECRET,
   GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
   GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
   DATABASE_URL: process.env.DATABASE_URL,
