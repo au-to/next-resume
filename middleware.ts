@@ -15,10 +15,9 @@ export default auth((req) => {
     return NextResponse.next()
   }
 
-  // 临时注释掉路由保护，方便开发调试
-  // if (isProtectedRoute && !isLoggedIn) {
-  //   return NextResponse.redirect(new URL('/auth/signin', nextUrl))
-  // }
+  if (isProtectedRoute && !isLoggedIn) {
+    return NextResponse.redirect(new URL('/auth/signin', nextUrl))
+  }
 
   return NextResponse.next()
 })
