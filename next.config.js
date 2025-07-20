@@ -7,8 +7,8 @@ const nextConfig = {
     domains: ['avatars.githubusercontent.com', 'github.com'],
   },
   env: {
-    NEXTAUTH_URL: process.env.AUTH_URL,
-    NEXTAUTH_SECRET: process.env.AUTH_SECRET,
+    AUTH_URL: process.env.AUTH_URL,
+    AUTH_SECRET: process.env.AUTH_SECRET,
   },
 }
 

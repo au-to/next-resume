@@ -39,12 +39,12 @@ npm install
 
 ```env
 # Next.js
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your-secret-key-here
+AUTH_URL=http://localhost:3000
+AUTH_SECRET=your-secret-key-here
 
 # GitHub OAuth (需要在 GitHub 创建 OAuth App)
-GITHUB_CLIENT_ID=your-github-client-id
-GITHUB_CLIENT_SECRET=your-github-client-secret
+AUTH_GITHUB_ID=your-github-client-id
+AUTH_GITHUB_SECRET=your-github-client-secret
 
 # Database (SQLite for development)
 DATABASE_URL="file:./dev.db"
@@ -200,10 +200,10 @@ npm run lint:fix
 ### 环境变量配置
 
 生产环境需要配置：
-- `NEXTAUTH_URL` - 你的域名
-- `NEXTAUTH_SECRET` - 安全密钥
-- `GITHUB_CLIENT_ID` - GitHub OAuth Client ID
-- `GITHUB_CLIENT_SECRET` - GitHub OAuth Client Secret
+- `AUTH_URL` - 你的域名
+- `AUTH_SECRET` - 安全密钥
+- `AUTH_GITHUB_ID` - GitHub OAuth Client ID
+- `AUTH_GITHUB_SECRET` - GitHub OAuth Client Secret
 - `DATABASE_URL` - 生产数据库连接字符串
 
 ## 🤝 贡献指南
