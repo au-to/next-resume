@@ -70,10 +70,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           })
           
           if (dbUser) {
-            ;(session.user as any).githubLogin = dbUser.githubLogin
-            ;(session.user as any).githubId = dbUser.githubId
-            ;(session.user as any).location = dbUser.location
-            ;(session.user as any).company = dbUser.company
+            (session.user as any).githubLogin = dbUser.githubLogin;
+            (session.user as any).githubId = dbUser.githubId;
+            (session.user as any).location = dbUser.location;
+            (session.user as any).company = dbUser.company;
           }
         } catch (error) {
           console.error('Error fetching user data for session:', error)

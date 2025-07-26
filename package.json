@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "Modern GitHub analytics and resume builder",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",
